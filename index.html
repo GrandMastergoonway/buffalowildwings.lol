@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>buffalowildwings.lol</title>
+    <meta property="description" content="buffalowildwings">
+    <meta property="og:title" content="buffalowildwings.lol">
+    <meta property="og:image" content="https://buffalowildwings.lol/buffalow">
+    <style>
+        body {
+            margin: 0;
+        }
+        img {
+            width: 100vw!important;
+            height: 100vh!important;
+            display: block;
+        }
+        #flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: white;
+            opacity: 0;
+            transition: opacity 0.9s ease;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <audio id="backgroundAudio" loop>
+        <source src="buffalow.mp3">
+    </audio>
+    <div id="flash"></div>
+    <img id="mainGif" src="buffalow.gif" alt="Buffalo Wild Wings GIF">
+
+    <script>
+        const gifDuration = 3000;
+        const originalGif = "buffalow.gif";
+        const alternateGif = "buffalo.gif";
+        const imgElement = document.getElementById("mainGif");
+        const flashElement = document.getElementById("flash");
+        const audioElement = document.getElementById("backgroundAudio");
+
+        function flashEffect() {
+            flashElement.style.opacity = 1;
+            setTimeout(() => {
+                flashElement.style.opacity = 0;
+            }, 500);
+        }
+
+        function switchGif() {
+            setTimeout(() => {
+                flashEffect();
+                setTimeout(() => {
+                    imgElement.src = alternateGif;
+                    setTimeout(() => {
+                        flashEffect();
+                        setTimeout(() => {
+                            imgElement.src = originalGif;
+                            switchGif();
+                        }, 500);
+                    }, gifDuration);
+                }, 500);
+            }, gifDuration);
+        }
+
+        document.body.addEventListener('click', () => {
+            audioElement.play();
+        });
+
+        switchGif();
+    </script>
+</body>
+</html>
